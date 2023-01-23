@@ -1,13 +1,15 @@
 #!/bin/bash
-#SBATCH --time=19:55:00
-#SBATCH --constraint=1
-#SBATCH --mem-per-cpu=12G
-#SBATCH --mail-type=begin        # send email when job begins
-#SBATCH --mail-type=end          # send email when job ends
+#SBATCH --time=10:00:00
+#SBATCH -c 1
+#SBATCH --mem-per-cpu 12G
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=codydong@princeton.edu
 #SBATCH --job-name=cody-exp-2
 #SBATCH --output slurm_log/%j.log
+
+module purge
+module load anaconda3/2021.11
+conda activate pytorch_q
 
 LOGROOT=/scratch/gpfs/cd6060/logs/when-to-recall
 DT=$(date +%Y-%m-%d)
