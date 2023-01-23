@@ -6,10 +6,6 @@
 #SBATCH --job-name=cody-exp-2
 #SBATCH --output slurm_log/%j.log
 
-module purge
-module load anaconda3/2021.11
-conda activate pytorch_q
-
 LOGROOT=/scratch/gpfs/cd6060/logs/when-to-recall
 DT=$(date +%Y-%m-%d)
 
