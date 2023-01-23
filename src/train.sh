@@ -1,11 +1,13 @@
 #!/bin/bash
-#SBATCH --time=10:00:00
+#SBATCH --time=19:55:00
 #SBATCH --constraint=1
 #SBATCH --mem-per-cpu=12G
+#SBATCH --job-name=when
+#SBATCH --mail-type=begin
+#SBATCH --mail-type=end
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=codydong@princeton.edu
-#SBATCH --job-name=cody-exp-2
-#SBATCH --output slurm_log/%j.log
+#SBATCH --output=slurm_log/when-%j.log
 
 module purge
 module load anaconda3/2021.11
