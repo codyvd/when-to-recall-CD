@@ -1,20 +1,17 @@
 #!/bin/bash
-#SBATCH --time=12:55:00
-#SBATCH --constraint=1
-#SBATCH --mem-per-cpu=12G
-#SBATCH --job-name=when
-#SBATCH --mail-type=begin
-#SBATCH --mail-type=end
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=codydong@princeton.edu
-#SBATCH --output=slurm_log/when-%j.log
+#SBATCH -t 11:55:00
+#SBATCH -c 1
+#SBATCH --mem-per-cpu 12G
+
+#SBATCH --job-name=cody-exp-2
+#SBATCH --output slurm_log/%j.log
 
 LOGROOT=/scratch/gpfs/cd6060/logs/when-to-recall
 DT=$(date +%Y-%m-%d)
 
 echo $(date)
 
-srun python -u run_exp2_CD.py \
+srun python -u run_exp2.py \
     --subj_id ${1} \
     --B ${2} \
     --penalty ${3} \

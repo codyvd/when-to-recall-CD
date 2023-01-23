@@ -12,8 +12,8 @@ cmpt=1
 eta=.1
 n_epochs=10
 sup_epoch=0
-dk_train_epoch=0
 test_mode=1
+dk_train_epoch=0
 p_lowD=0.5
 
 sbatch train.sh \
