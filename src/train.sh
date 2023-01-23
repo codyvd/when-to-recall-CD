@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --time=19:55:00
+#SBATCH --time=12:55:00
 #SBATCH --constraint=1
 #SBATCH --mem-per-cpu=12G
-#SBATCH --job-name=lcarnn
-#SBATCH --mail-type=begin        # send email when job begins
-#SBATCH --mail-type=end          # send email when job ends
+#SBATCH --job-name=when
+#SBATCH --mail-type=begin
+#SBATCH --mail-type=end
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=codydong@princeton.edu
-#SBATCH --output=slurm_log/lcarnn-%j.log
+#SBATCH --output=slurm_log/when-%j.log
 
 LOGROOT=/scratch/gpfs/cd6060/logs/when-to-recall
 DT=$(date +%Y-%m-%d)
