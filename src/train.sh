@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --time=10:00:00
-#SBATCH -c 1
-#SBATCH --mem-per-cpu 12G
+#SBATCH --constraint=1
+#SBATCH --mem-per-cpu=12G
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=codydong@princeton.edu
 #SBATCH --job-name=cody-exp-2
