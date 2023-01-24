@@ -117,7 +117,7 @@ class SimpleExp2():
             if high_d_only:
                 trial_types[event_label] = 'high d'
             else:
-                trial_types[event_label] = self.sample_trial_type(p)
+                trial_types[event_label] = self.sample_trial_type()
             # make the target and lure for the study phase events  + the test target events
             targ_study, lure_study, targ_test = self.em.make_stimuli(
                 feature_value_list, shared_feature_ids[event_label],

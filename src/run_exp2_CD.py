@@ -68,7 +68,8 @@ final_epoch = n_epochs
 p = P(
     subj_id=subj_id, B = B, penalty = penalty, n_hidden = n_hidden, lr = lr, cmpt = cmpt,
     eta = eta, test_mode = test_mode, add_query_indicator = add_query_indicator,
-    gating_type = gating_type, n_epochs = n_epochs, sup_epoch = sup_epoch, exp_name=exp_name, log_root=log_root
+    gating_type = gating_type, n_epochs = n_epochs, sup_epoch = sup_epoch, exp_name=exp_name, log_root=log_root, dk_train_epoch=dk_train_epoch,
+    p_lowD=p_lowD,add_condition_indicator=add_condition_label
 )
 p.gen_log_dirs()
 '''init model and task'''
@@ -80,7 +81,7 @@ y_dim = exp.y_dim+1 # add 1 for the don't know unit
 agent = Agent(
     input_dim=x_dim, output_dim=y_dim, rnn_hidden_dim=n_hidden,
     dec_hidden_dim=n_hidden//2, dict_len=2, cmpt=cmpt,
-    add_query_indicator=add_query_indicator, add_condition_indicator=add_condition_label
+    add_query_indicator=add_query_indicator, add_condition_label=add_condition_label
 )
 # optimizer_sup = torch.optim.Adam(agent.parameters(), lr=lr)
 optimizer = torch.optim.Adam(agent.parameters(), lr=lr)
@@ -130,7 +131,7 @@ def run_exp2(n_epochs, epoch_loaded=0,dk_train_epoch = 0, learning=True):
             print("DK Training Epochs")
             X, Y, log_sf_ids[i], log_trial_types[i] = exp.make_data(to_torch=True, test_mode=False)
         else:
-            print("Regular Training Epochs")
+            print("Regular Epochs")
             X, Y, log_sf_ids[i], log_trial_types[i] = exp.make_data(to_torch=True, test_mode=True)
         permuted_tiro_ids = np.random.permutation(exp.n_trios)
         for j in permuted_tiro_ids:

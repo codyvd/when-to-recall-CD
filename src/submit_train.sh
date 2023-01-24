@@ -5,7 +5,7 @@ add_condition_label=0
 gating_type=post
 n_epochs=15000
 sup_epoch=0
-test_mode=0
+test_mode=1
 eta=0.1
 dk_train_epoch=0
 

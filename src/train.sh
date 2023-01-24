@@ -11,7 +11,7 @@ DT=$(date +%Y-%m-%d)
 
 echo $(date)
 
-srun python -u run_exp2.py \
+srun python -u run_exp2_CD.py \
     --subj_id ${1} \
     --B ${2} \
     --penalty ${3} \
