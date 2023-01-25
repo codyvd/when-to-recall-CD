@@ -3,7 +3,7 @@
 #SBATCH -c 1
 #SBATCH --mem-per-cpu 12G
 
-#SBATCH --job-name=cody-exp-2
+#SBATCH --job-name=cody-exp-2-pilot
 #SBATCH --output slurm_log/%j.log
 
 LOGROOT=/scratch/gpfs/cd6060/logs/when-to-recall

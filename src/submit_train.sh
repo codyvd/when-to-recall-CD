@@ -19,7 +19,7 @@ do
       do
         for n_hidden in 128
         do
-          for cmpt in .9
+          for cmpt in .8
           do
             for p_lowD in .2 .4 .5 .6 .8
             do

@@ -6,7 +6,7 @@ import pandas as pd
 import seaborn as sns
 import torch.nn.functional as F
 import argparse
-# from torch.optim.lr_scheduler import ConstantLR
+from torch.optim.lr_scheduler import StepLR
 from task import SimpleExp2
 from task import get_reward, ground_truth_mem_sig
 # from models import LCALSTM as Agent
@@ -102,13 +102,13 @@ if p.log_dir_exists() and ckpt_exists(p.log_dir):
     agent, optimizer = load_ckpt(epoch_loaded, p.log_dir, agent, optimizer)
     #optimizer = torch.optim.Adam(agent.parameters(), lr=lr_kt)
     epoch_loaded += 1
-    n_epochs = n_epochs = n_epochs_kt - (epoch_loaded)
+    n_epochs = final_epoch - (epoch_loaded)
 else:
     n_epochs_kt, lr_kt = 0, None
     epoch_loaded = 0
     learning = True
 
-scheduler_RL = torch.optim.lr_scheduler.StepLR(optimizer, 3000, gamma=0.333)
+scheduler_RL = StepLR(optimizer, 3000, gamma=0.333)
 
 '''train the model'''
 def run_exp2(n_epochs, epoch_loaded=0,dk_train_epoch = 0, learning=True):
@@ -179,17 +179,21 @@ def run_exp2(n_epochs, epoch_loaded=0,dk_train_epoch = 0, learning=True):
 
                 if learning:
                     # update weights
-                    if torch.any(torch.isnan(pi_ent)):
-                        print('WARNING ENTROPY!')
-                        loss_rl = loss_actor + loss_critic
-                        optimizer.zero_grad()
-                        loss_rl.backward()
-                        optimizer.step()
-                    else:
-                        loss_rl = loss_actor + loss_critic - pi_ent * eta
-                        optimizer.zero_grad()
-                        loss_rl.backward()
-                        optimizer.step()
+                    loss_rl = loss_actor + loss_critic - pi_ent * eta
+                    optimizer.zero_grad()
+                    loss_rl.backward()
+                    optimizer.step()
+                    # if torch.any(torch.isnan(pi_ent)):
+                    #     print('WARNING ENTROPY!')
+                    #     loss_rl = loss_actor + loss_critic
+                    #     optimizer.zero_grad()
+                    #     loss_rl.backward()
+                    #     optimizer.step()
+                    # else:
+                    #     loss_rl = loss_actor + loss_critic - pi_ent * eta
+                    #     optimizer.zero_grad()
+                    #     loss_rl.backward()
+                    #     optimizer.step()
 
                 # log info
                 log_loss_s[i,j,k] = loss_sup.clone().detach()
@@ -369,7 +373,7 @@ f.savefig(fig_path, dpi=100)
 
 '''analyze the results at the end of training '''
 # num of epochs to analyze
-npa = 200
+npa = num_test_epochs
 name_str = f'penalty_{penalty}_plowd_{round(p_lowD*100)}_dktrain_{dk_train_epoch}_subj_{subj_id}_'
 
 # reformat data
